@@ -1,0 +1,75 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    color: #4D4D55;
+}
+
+h1 {
+    font-family: 'Faster One', cursive;
+    font-size: 8.5em;
+    text-shadow: 1px 1px antiquewhite;
+    text-align: center;
+    margin-top: -10px;
+    padding: 10px;
+    background-image: linear-gradient(to right, #f8f8f8, #ffdaff);
+}
+
+p {
+    font-family: 'Montserrat Alternates', sans-serif;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#item {
+    text-align: center;
+    margin: 50px 0;
+}
+
+#items {
+    border: 3px solid black;
+    border-radius: 4px;
+}
+
+img {
+    display: inline-block;
+    border: 15px solid #4D4D55;
+    border-radius: 5%;
+    margin: 7%;
+    align-content: center;
+    height: 200px;
+    width: 250px;
+}
+
+#status {
+    margin: 60px;
+}
+
+li {
+    font-family: 'Montserrat Alternates', sans-serif;
+    text-align: center;
+    margin: 10px 0;
+    font-size: 20px;
+}
+
+footer {
+    font-family: 'Faster One', cursive;
+    background-image: linear-gradient(to right, #ffdaff, #f8f8f8);
+    padding: 15px;
+    text-align: center;
+    text-shadow: 1px 1px rgb(226, 10, 10);
+}
+
+#btn {
+    align-content: center;
+    padding: 10px;
+    margin: 4% 45%;
+    background-image: linear-gradient(to left, #f8f8f8, #ffdaff);
+}
+
+#btn:hover {
+    background-image: linear-gradient(to left, #fdb3b3, #f060f0);
+    transition: 0.8ms ease-in;
+}
