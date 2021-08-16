@@ -28,7 +28,7 @@ function BusImage(product) {
 for (let i = 0; i < busImage.length; i++) {
     new BusImage(busImage[i]);
 }
-console.log(busMall);
+// console.log(busMall);
 
 function randomImage() {
     return Math.floor(Math.random() * busMall.length);
@@ -64,11 +64,11 @@ function renderImage() {
 }
 renderImage();
 
-leftImg.addEventListener('click', addClick);
-centerImg.addEventListener('click', addClick);
-rightImg.addEventListener('click', addClick);
+leftImg.addEventListener('click', forclick);
+rightImg.addEventListener('click', forclick);
+centerImg.addEventListener('click', forclick);
 
-function addClick(event) {
+function forclick(event) {
     if (submit <= maxSubmit) {
         let clickedImage = event.target.id;
         if (clickedImage === 'leftImg') {
@@ -79,21 +79,24 @@ function addClick(event) {
             busMall[rightItem].vote++;
         }
 
-        renderImage();
         submit++;
+        renderImage();
     } else {
-        let button = document.getElementById('btn');
-        button.addEventListener('click', btnSubmit);
-        arrar = [];
+
+
+
+        document.getElementById('btn').onclick = function() { btnSubmit() };
+
+        let arrar = [];
 
         function btnSubmit() {
             for (let i = 0; i < busMall.length; i++) {
                 let liEl = document.createElement('li');
                 status.appendChild(liEl);
                 liEl.textContent = `${busMall[i].PName} has ${busMall[i].vote} votes and ${busMall[i].views} views.`
-                vote.push(bus[i].vote);
-                views.push(bus[i].views);
-                arrar.push(bus[i].PName);
+                vote.push(busMall[i].vote);
+                views.push(busMall[i].views);
+                arrar.push(busMall[i].PName);
             }
             leftImg.removeEventListener('click', addClick);
             centerImg.removeEventListener('click', addClick);
@@ -111,7 +114,7 @@ function chartRender() {
             labels: busImage,
             datasets: [{
                 label: '# of Votes',
-                data: votes,
+                data: vote,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)'
                 ],
