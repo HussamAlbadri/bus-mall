@@ -35,7 +35,7 @@ p {
 
 img {
     display: inline-block;
-    border: 15px solid #4D4D55;
+    border: 15px dashed #4D4D55;
     border-radius: 5%;
     margin: 7%;
     align-content: center;
