@@ -47,8 +47,13 @@ function renderImage() {
     while (leftItem === centerItem || leftItem === rightItem || centerItem === rightItem || roundimg.includes(leftItem) ||
         roundimg.includes(centerItem) || roundimg.includes(rightItem)) {
         leftItem = randomImage();
+
+        
         centerItem = randomImage();
+
+        
         rightItem = randomImage();
+
 
     }
     roundimg = [];
@@ -74,31 +79,34 @@ function forclick(event) {
     if (submit <= maxSubmit) {
         let clickedImage = event.target.id;
         if (clickedImage === 'left-img') {
-            busMall[leftItem].vote++;
+
+            busMall[leftItem].votes++;
         } else if (clickedImage === 'middle-img') {
-            busMall[centerItem].vote++;
+            busMall[centerItem].votes++;
+        
+
+
         } else if (clickedImage === 'right-img') {
             busMall[rightItem].vote++;
+
         }
         renderImage();
         submit++;
 
     } else {
 
+        document.getElementById('btn').onclick = function() {
 
+            btnSubmit()
+        };
 
-        document.getElementById('btn').onclick = function() { btnSubmit() };
-
-        let arrar = [];
 
         function btnSubmit() {
             for (let i = 0; i < busMall.length; i++) {
                 let liEl = document.createElement('li');
                 status.appendChild(liEl);
-                liEl.textContent = `${busMall[i].PName} has ${busMall[i].vote} votes and ${busMall[i].views} views.`
-                vote.push(busMall[i].vote);
-                views.push(busMall[i].views);
-                arrar.push(busMall[i].PName);
+
+                liEl.textContent = `${busMall[i].PName} has ${busMall[i].votes} votes and ${busMall[i].views} views.`
                 document.getElementById('btn').style.display = 'none';
 
             }
