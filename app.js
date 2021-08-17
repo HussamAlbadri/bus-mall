@@ -40,6 +40,8 @@ function renderImage() {
     while (leftItem === centerItem || leftItem === rightItem || centerItem === rightItem) {
 
         leftItem = randomImage();
+        rightItem = randomImage();
+        centerItem = randomImage();
     }
     leftImg.setAttribute('src', busMall[leftItem].ProductImage);
     centerImg.setAttribute('src', busMall[centerItem].ProductImage);
@@ -57,25 +59,28 @@ rightImg.addEventListener('click', addClick);
 function addClick(event) {
     if (submit <= maxSubmit) {
         let clickedImage = event.target.id;
-        if (clickedImage === 'leftImg') {
+        if (clickedImage === 'left-img') {
             busMall[leftItem].votes++;
-        } else if (clickedImage === 'centerImg') {
+        } else if (clickedImage === 'middle-img') {
             busMall[centerItem].votes++;
-        } else if (clickedImage === 'rightImg') {
+        } else if (clickedImage === 'right-img') {
             busMall[rightItem].votes++;
         }
 
         renderImage();
         submit++;
     } else {
-        let button = document.getElementById('btn');
-        button.addEventListener('click', btnSubmit);
+        document.getElementById('btn').onclick = function() {
+
+            btnSubmit()
+        };
 
         function btnSubmit() {
             for (let i = 0; i < busMall.length; i++) {
                 let liEl = document.createElement('li');
                 status.appendChild(liEl);
                 liEl.textContent = `${busMall[i].PName} has ${busMall[i].votes} votes and ${busMall[i].views} views.`
+                document.getElementById('btn').style.display = 'none';
             }
             leftImg.removeEventListener('click', addClick);
             centerImg.removeEventListener('click', addClick);
