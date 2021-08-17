@@ -8,7 +8,7 @@ let leftImg = document.getElementById('left-img');
 let centerImg = document.getElementById('middle-img');
 let rightImg = document.getElementById('right-img');
 let submit = 1;
-let maxSubmit = 5;
+let maxSubmit = 25;
 let busMall = [];
 let vote = [];
 let views = [];
@@ -69,18 +69,20 @@ rightImg.addEventListener('click', forclick);
 centerImg.addEventListener('click', forclick);
 
 function forclick(event) {
+
+
     if (submit <= maxSubmit) {
         let clickedImage = event.target.id;
-        if (clickedImage === 'leftImg') {
+        if (clickedImage === 'left-img') {
             busMall[leftItem].vote++;
-        } else if (clickedImage === 'centerImg') {
+        } else if (clickedImage === 'middle-img') {
             busMall[centerItem].vote++;
-        } else if (clickedImage === 'rightImg') {
+        } else if (clickedImage === 'right-img') {
             busMall[rightItem].vote++;
         }
-
-        submit++;
         renderImage();
+        submit++;
+
     } else {
 
 
@@ -97,11 +99,19 @@ function forclick(event) {
                 vote.push(busMall[i].vote);
                 views.push(busMall[i].views);
                 arrar.push(busMall[i].PName);
+                document.getElementById('btn').style.display = 'none';
+
             }
-            leftImg.removeEventListener('click', addClick);
-            centerImg.removeEventListener('click', addClick);
-            rightImg.removeEventListener('click', addClick);
+
+            leftImg.removeEventListener('click', forclick);
+            centerImg.removeEventListener('click', forclick);
+            rightImg.removeEventListener('click', forclick);
+            chartRender();
+
+
+
         }
+
     }
 
 }
@@ -144,4 +154,3 @@ function chartRender() {
         }
     });
 }
-chartRender();
