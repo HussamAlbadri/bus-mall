@@ -10,19 +10,25 @@ let rightImg = document.getElementById('right-img');
 let submit = 1;
 let maxSubmit = 25;
 let busMall = [];
+let vote = [];
+let views = [];
+let imgNames = [];
+
 
 function BusImage(product) {
     this.PName = product.split('.')[0];
     this.ProductImage = `img/${product}`;
-    this.votes = 0;
+    this.vote = 0;
     this.views = 0;
     busMall.push(this);
+    imgNames.push(this.PName)
+
 }
 
 for (let i = 0; i < busImage.length; i++) {
     new BusImage(busImage[i]);
 }
-console.log(busMall);
+// console.log(busMall);
 
 function randomImage() {
     return Math.floor(Math.random() * busMall.length);
@@ -31,18 +37,29 @@ function randomImage() {
 let leftItem;
 let centerItem;
 let rightItem;
+let roundimg = [];
 
 function renderImage() {
     leftItem = randomImage();
     centerItem = randomImage();
     rightItem = randomImage();
 
-    while (leftItem === centerItem || leftItem === rightItem || centerItem === rightItem) {
-
+    while (leftItem === centerItem || leftItem === rightItem || centerItem === rightItem || roundimg.includes(leftItem) ||
+        roundimg.includes(centerItem) || roundimg.includes(rightItem)) {
         leftItem = randomImage();
-        rightItem = randomImage();
+
+        
         centerItem = randomImage();
+
+        
+        rightItem = randomImage();
+
+
     }
+    roundimg = [];
+    roundimg[0] = leftItem;
+    roundimg[1] = centerItem;
+    roundimg[2] = rightItem;
     leftImg.setAttribute('src', busMall[leftItem].ProductImage);
     centerImg.setAttribute('src', busMall[centerItem].ProductImage);
     rightImg.setAttribute('src', busMall[rightItem].ProductImage);
@@ -52,40 +69,96 @@ function renderImage() {
 }
 renderImage();
 
-leftImg.addEventListener('click', addClick);
-centerImg.addEventListener('click', addClick);
-rightImg.addEventListener('click', addClick);
+leftImg.addEventListener('click', forclick);
+rightImg.addEventListener('click', forclick);
+centerImg.addEventListener('click', forclick);
 
-function addClick(event) {
+function forclick(event) {
+
+
     if (submit <= maxSubmit) {
         let clickedImage = event.target.id;
         if (clickedImage === 'left-img') {
+
             busMall[leftItem].votes++;
         } else if (clickedImage === 'middle-img') {
             busMall[centerItem].votes++;
-        } else if (clickedImage === 'right-img') {
-            busMall[rightItem].votes++;
-        }
+        
 
+
+        } else if (clickedImage === 'right-img') {
+            busMall[rightItem].vote++;
+
+        }
         renderImage();
         submit++;
+
     } else {
+
         document.getElementById('btn').onclick = function() {
 
             btnSubmit()
         };
 
+
         function btnSubmit() {
             for (let i = 0; i < busMall.length; i++) {
                 let liEl = document.createElement('li');
                 status.appendChild(liEl);
+
                 liEl.textContent = `${busMall[i].PName} has ${busMall[i].votes} votes and ${busMall[i].views} views.`
                 document.getElementById('btn').style.display = 'none';
+
             }
-            leftImg.removeEventListener('click', addClick);
-            centerImg.removeEventListener('click', addClick);
-            rightImg.removeEventListener('click', addClick);
+
+            leftImg.removeEventListener('click', forclick);
+            centerImg.removeEventListener('click', forclick);
+            rightImg.removeEventListener('click', forclick);
+            chartRender();
+
+
+
         }
+
     }
 
+}
+
+function chartRender() {
+    let ctx = document.getElementById('myChart').getContext('2d');
+    let myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: busImage,
+            datasets: [{
+                label: '# of Votes',
+                data: vote,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }, {
+                label: '# of views',
+                data: views,
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1
+
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 }
