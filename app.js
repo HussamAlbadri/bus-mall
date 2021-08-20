@@ -115,14 +115,30 @@ function forclick(event) {
             centerImg.removeEventListener('click', forclick);
             rightImg.removeEventListener('click', forclick);
             chartRender();
+            createLocalStorage();
+            getLocalStorage();
 
 
 
         }
 
+
+
     }
 
+    function createLocalStorage() {
+        let storage = JSON.stringify(busMall)
+        localStorage.setItem('voteRes', storage);
+    }
+
+    function getLocalStorage() {
+        let result = localStorage.getItem('result');
+        busMall = JSON.parse(result);
+    }
+
+
 }
+
 
 function chartRender() {
     let ctx = document.getElementById('myChart').getContext('2d');
